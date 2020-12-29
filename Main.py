@@ -4,39 +4,38 @@ import time
 import random
 import pandas as pd
 import _thread
-
+import os
 
 msg = []
 
 
 class Twitter():
 
+    def time1(self):
+        time.sleep(2)
     def time2(self):
-        time.sleep(5)
-    def time2(self):
-        time.sleep(5)
-        #time.sleep(7200)
+        time.sleep(random.randint(7789,14256))
 
     def Login(self,Twitter_browser,dicT):
         Twitter_browser.get("https://twitter.com/home")
-        Twitter.time2(0)
+        Twitter.time1(0)
         usr = Twitter_browser.find_element_by_name(
             "session[username_or_email]")
         usr.send_keys(dicT["Username"])
         password = Twitter_browser.find_element_by_name(
             "session[password]")
         password.send_keys(dicT["Password"])
-        Twitter.time2(0)
+        Twitter.time1(0)
         loginbtn = Twitter_browser.find_element_by_xpath(
             "/html/body/div/div/div/div[2]/main/div/div/div[1]/form/div/div[3]/div")
         loginbtn.click()
-        dicT["Stage3"] = 1
+        dicT["Stage3"] = "complete"
 
     def Tweet(self,Twitter_browser):
         tweetbttn = Twitter_browser.find_element_by_xpath(
             "/html/body/div/div/div/div[2]/header/div/div/div/div[1]/div[3]/a")
         tweetbttn.click()
-        Twitter.time2(0)
+        Twitter.time1(0)
         tweetbodymsg = Twitter_browser.find_element_by_xpath(
             "/html/body/div/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div[3]/div/div/div/div[1]/div/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div[1]/div/div/div/div[2]/div")
         tweetbodymsg.send_keys(msg)
@@ -54,14 +53,16 @@ class Twitter():
         _thread.start_new_thread(Twitter.Login, (0,Twitter_browser,dicT,))
         print("Processing please wait, sometimes this can take 2 mins.")
         while True:
-            if ((dicT["Stage1"] == 1) and (dicT["Stage2"] == 1) and (dicT["Stage3"] == 1)):
-                Twitter.time2(0)
+            if ((dicT["Stage1"] == "complete") and (dicT["Stage2"] == "complete") and (dicT["Stage3"] == "complete")):
+                Twitter.time1(0)
                 Twitter.Tweet(0,Twitter_browser)
+                print("Successfully Tweeted")
                 break
             else:
                 pass
-            Twitter.time2(0)
-            print(dicT)
+            time.sleep(1)
+            os.system('clear')
+            print("File Stage: {}\nHashes gathered: {}\nLogin: {}".format(dicT["Stage1"],dicT["Stage2"],dicT["Stage3"]))
 
 class File():
     def filelookup(self,dicT):
@@ -76,8 +77,7 @@ class File():
         msg.append(" Did you know: ")
         msg.append(factstring)
         msg.append(" ")
-        dicT["Stage1"] = 1
-        print(msg)
+        dicT["Stage1"] = "complete"
 
 class Hash():
     def getTags(self,Hash_browser, dicT):
@@ -94,44 +94,52 @@ class Hash():
                     item[number1]).text)
                 counter += 1
         Hash_browser.quit()
-        dicT["Stage2"] = 1
+        dicT["Stage2"] = "complete"
 
 
 def Menu():
-    dicT = {
-        "Username" : "",
-        "Password" : "",
-        "Stage1" : 0,
-        "Stage2" : 0,
-        "Stage3" : 0
-    }
+    
     while True:
         try:
             timE = time.ctime(time.time())
             choice = int(input(f"""------------------------
-Welcome to this demonstration, half of this program has been deleted.
 {timE}
 Menu:
-1. Project start
+1. Demonstration
+2. Tweet every 2-4 hours
 3. Quit
 ------------------------
 Your choice: """))
             if choice == 1:
+                dicT = {
+                    "Username" : "",
+                    "Password" : "",
+                    "Stage1" : "un-complete",
+                    "Stage2" : "un-complete",
+                    "Stage3" : "un-complete"
+                }
                 dicT["Username"] = str(input("""====================\nTwitter Username: """))
                 dicT["Password"] = str(input("""====================\nTwitter Password: """))
                 Twitter.Register(0,dicT)
+            elif choice == 2:
+                dicT = {
+                    "Username" : "",
+                    "Password" : "",
+                    "Stage1" : "un-complete",
+                    "Stage2" : "un-complete",
+                    "Stage3" : "un-complete"
+                }
+                dicT["Username"] = str(input("""====================\nTwitter Username: """))
+                dicT["Password"] = str(input("""====================\nTwitter Password: """))
+                while True:
+                    Twitter.time2(0)
+                    Twitter.Register(0,dicT)
             elif choice == 3:
                 break
             else:
                 print(f"{choice} is not a choice.")
         except:
             print("error with your input")
-dicT = {
-    "Username" : "",
-    "Password" : "",
-    "Stage1" : 0,
-    "Stage2" : 0,
-    "Stage3" : 0
-}
-File.filelookup(0,dicT)
-#Menu()
+os.system('clear')
+Menu()
+os.system('clear')
