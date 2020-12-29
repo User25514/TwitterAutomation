@@ -1,14 +1,6 @@
 #!/bin/bash
 # 
-covertracks(){
-    echo "" /var/log/auth.log
-    echo "" ~/.bash_history/
-    rm ~/.bash_history -rf
-    history -c
-    export HISTFILESIZE=0
-    export HISTSIZE=0
-    unset HISTFILE
-}
+
 setupmenu(){
     echo -------------------
     PS3='Please enter your choice: '
@@ -50,36 +42,4 @@ setupmenu(){
     done
 }
 
-
-primarymenu(){
-    echo -------------------
-    PS3='Please enter your choice: '
-    options=("Shell" "Proton VPN" "Setup" "SHUT IT DOWN SHUT IT DOWN" "Quit")
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            "Shell")
-                ./shell.ssh
-                ;;
-            "Proton VPN")
-                ./vpn.ssh
-                ;;
-            "Setup")
-                setupmenu
-                ;;
-            "SHUT IT DOWN SHUT IT DOWN")
-                covertracks
-                kill -9 $$
-                ;;
-            "Quit")
-                covertracks
-                exit 1
-                ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
-}
-while true; do
-    primarymenu
-    covertracks
-    done
+setupmenu
