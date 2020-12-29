@@ -1,0 +1,85 @@
+#!/bin/bash
+# 
+covertracks(){
+    echo "" /var/log/auth.log
+    echo "" ~/.bash_history/
+    rm ~/.bash_history -rf
+    history -c
+    export HISTFILESIZE=0
+    export HISTSIZE=0
+    unset HISTFILE
+}
+setupmenu(){
+    echo -------------------
+    PS3='Please enter your choice: '
+    options=("Update kali" "Install selenium" "Back" "Quit")
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            "Update kali")
+                apt-get update && apt-get install update
+                primarymenu
+                ;;
+            "Install selenium")
+                cd
+                cd Downloads
+                sudo apt install python3-pip
+                apt-get -y upgradesetup.py
+                sudo apt-get update
+                sudo apt-get upgrade
+                sudo apt install python3.8
+                sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.8 10
+                curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+                sudo  python get-pip.py
+                wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+                tar -xvzf geckodriver*
+                chmod +x geckodriver
+                sudo cp geckodriver /usr/local/bin 
+                sudo pip install selenium
+                pip install pandas
+                ;;
+            "Back")
+                primarymenu
+                ;;
+            "Quit")
+                covertracks
+                exit 1
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+}
+
+
+primarymenu(){
+    echo -------------------
+    PS3='Please enter your choice: '
+    options=("Shell" "Proton VPN" "Setup" "SHUT IT DOWN SHUT IT DOWN" "Quit")
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            "Shell")
+                ./shell.ssh
+                ;;
+            "Proton VPN")
+                ./vpn.ssh
+                ;;
+            "Setup")
+                setupmenu
+                ;;
+            "SHUT IT DOWN SHUT IT DOWN")
+                covertracks
+                kill -9 $$
+                ;;
+            "Quit")
+                covertracks
+                exit 1
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+}
+while true; do
+    primarymenu
+    covertracks
+    done
