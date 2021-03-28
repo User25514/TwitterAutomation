@@ -1,45 +1,17 @@
 #!/bin/bash
-# 
-
-setupmenu(){
-    echo -------------------
-    PS3='Please enter your choice: '
-    options=("Update kali" "Install selenium" "Back" "Quit")
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            "Update kali")
-                apt-get update && apt-get install update
-                primarymenu
-                ;;
-            "Install selenium")
-                cd
-                cd Downloads
-                sudo apt install python3-pip
-                apt-get -y upgradesetup.py
-                sudo apt-get update
-                sudo apt-get upgrade
-                sudo apt install python3.8
-                sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.8 10
-                curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-                sudo  python get-pip.py
-                wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
-                tar -xvzf geckodriver*
-                chmod +x geckodriver
-                sudo cp geckodriver /usr/local/bin 
-                sudo pip install selenium
-                pip install pandas
-                ;;
-            "Back")
-                primarymenu
-                ;;
-            "Quit")
-                covertracks
-                exit 1
-                ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
-}
-
-setupmenu
+cd
+cd Downloads
+sudo apt install python3-pip
+apt-get -y upgradesetup.py
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt install python3.8
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.8 10
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo  python get-pip.py
+wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+tar -xvzf geckodriver*
+chmod +x geckodriver
+sudo cp geckodriver /usr/local/bin 
+sudo pip install selenium
+pip install pandas
