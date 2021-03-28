@@ -3,7 +3,7 @@
 This is a Python library for sending automated tweets with less interaction.
 This works by using Selenium and Pandas python libraries, gathers the top 5 Hashes in the world, randomly chooses them and then randomly gathers info from CSV's to make a tweet.
 ## How to install neccessary requirements:
-Open the terminal in the folder and type [sudo ./Start.ssh]
+Open the terminal in the folder and type **sudo ./Start.ssh**
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.
