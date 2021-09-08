@@ -1,5 +1,7 @@
 # THIS DOES NOT WORK ANYMORE!
 As a change to twitters elements, this does not work anymore. If a way is found, I will update this repo, but for now it will stay as just a showcase of what I could fo 8 months ago.
+<hr class="line">
+
 ### This is for Educational Purposes Only!
 ## Twitter Automated Tweets
 This is a Python library for sending automated tweets with less interaction.
