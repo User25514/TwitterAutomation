@@ -1,3 +1,5 @@
+# THIS DOES NOT WORK ANYMORE!
+As a change to twitters elements, this does not work anymore. If a way is found, I will update this repo, but for now it will stay as just a showcase of what I could fo 8 months ago.
 ### This is for Educational Purposes Only!
 ## Twitter Automated Tweets
 This is a Python library for sending automated tweets with less interaction.
@@ -7,5 +9,3 @@ Open the terminal in the folder and type **sudo ./Start.ssh**
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
